@@ -1,0 +1,29 @@
+dyna_joints - only vertices
+rom_joints - only vertices
+dyna_sbs - vertices + faces + texture
+dyna_target - vertices + faces + texture
+rom_sbs - vertices + faces + texture
+rom_target - vertices + faces + texture
+
+dyna_target:
+mesh.vertices.shape
+(34612, 3)
+mesh.faces.shape
+(65384, 3)
+type(mesh.visual)
+<class 'trimesh.visual.texture.TextureVisuals'>
+mesh.visual.uv.shape
+(34612, 2)
+
+rom_target:
+mesh.vertices.shape
+(34616, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34616, 2)
+
+rom_joints:
+mesh.vertices.shape
+(83, 3)
+

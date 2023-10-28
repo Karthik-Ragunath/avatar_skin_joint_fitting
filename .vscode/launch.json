@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "render_images",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/code_snippets.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--file_path", "geo/dyna_joints/drc/dyna_joints.00600.drc"
+                // "--file_path", "geo/dyna_sbs/drc/dyna_sbs.00600.drc"
+                // "--file_path", "geo/dyna_target/drc/dyna_target.00600.drc"
+                // "--file_path", "geo/rom_sbs/drc/rom_sbs.01000.drc"
+                // "--file_path", "geo/rom_target/drc/rom_target.01000.drc"
+                // "--file_path", "geo/rom_joints/drc/rom_joints.00001.drc"
+            ]
+        }
+    ]
+}
