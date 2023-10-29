@@ -28,8 +28,7 @@ def get_texture_at_uv(uv, texture_image):
 
 # uv_coord = [0.6, 0.7]
 # color = get_texture_at_uv(uv_coord, texture_image)
-
-print(f"Color at UV coordinate {uv_coord} is {color}")
+# print(f"Color at UV coordinate {uv_coord} is {color}")
 
 
 def parse_arguments():

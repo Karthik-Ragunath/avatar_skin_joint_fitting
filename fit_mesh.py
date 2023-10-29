@@ -30,8 +30,17 @@ def load_mesh(file_path):
     mesh = load_objs_as_meshes([file_path], device=torch.device("cpu"))
     return mesh
 
-def feed_auto_encoder():
-    pass
+def feed_auto_encoder(pose_auto_encoder: MultiFrameAudioAE, ground_truth: torch.Tensor, condition: torch.Tensor, future_weights: torch.Tensor):
+    condition = condition.flatten(start_dim=1, end_dim=2)
+    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2)
+    output_shape = (-1, 1, pose_auto_encoder.frame_size)
+
+    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition)
+    vae_output = vae_output.view(output_shape)
+    recon_loss = (vae_output - ground_truth).pow(2).mean(dim=(0, -1))
+    recon_loss = recon_loss.mul(future_weights).sum()
+
+    return (vae_output, mu_prior, logvar_prior), (recon_loss)
 
 def load_mesh(file_path: str):
     mesh = load_mesh(file_path)
@@ -87,7 +96,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                 )
                 condition[:, :args.num_condition_frames].copy_(source_vertices[condition_range])
                 ground_truth[:, :args.num_condition_frames].copy_(target_vertices[condition_range])
-                vae_output, recon_loss = feed_auto_encoder(
+                (vae_output, _, _), (recon_loss) = feed_auto_encoder(
                     pose_auto_encoder, ground_truth, condition, future_weights
                 )
                 vae_optimizer.zero_grad()
@@ -107,13 +116,9 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
 
 if __name__ == "__main__":
     args = parse_arguments()
+    # setup parameters
     args.num_epochs = 100
     args.mini_batch_size = 64
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
-    # setup parameters
-    mesh = load_mesh(args.file_path)
-    vertices = mesh.verts_list()[0]
-    faces = mesh.faces_list()[0]
-    # print(mesh)
-    save_obj('pytorch_3d_mesh.obj', vertices, faces)
+    main(args)
