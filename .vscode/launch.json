@@ -12,12 +12,30 @@
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
-                "--file_path", "geo/dyna_joints/drc/dyna_joints.00600.drc"
+                // "--file_path", "geo/dyna_joints/drc/dyna_joints.00600.drc"
                 // "--file_path", "geo/dyna_sbs/drc/dyna_sbs.00600.drc"
                 // "--file_path", "geo/dyna_target/drc/dyna_target.00600.drc"
-                // "--file_path", "geo/rom_sbs/drc/rom_sbs.01000.drc"
-                // "--file_path", "geo/rom_target/drc/rom_target.01000.drc"
-                // "--file_path", "geo/rom_joints/drc/rom_joints.00001.drc"
+                // "--file_path", "geo/rom_sbs/drc/rom_sbs.00600.drc"
+                // "--file_path", "geo/rom_target/drc/rom_target.00600.drc"
+                // "--file_path", "geo/rom_joints/drc/rom_joints.00600.drc"
+                "--file_path", "dyna_sbs/drc/dyna_sbs.00002.drc"
+            ]
+        },
+        {
+            "name": "render_images:objs",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/render_objs.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                // "--file_path", "geo/dyna_joints/drc/dyna_joints.00600.drc"
+                // "--file_path", "geo/dyna_sbs/drc/dyna_sbs.00600.drc"
+                // "--file_path", "geo/dyna_target/drc/dyna_target.00600.drc"
+                // "--file_path", "geo/rom_sbs/drc/rom_sbs.00600.drc"
+                // "--file_path", "geo/rom_target/drc/rom_target.00600.drc"
+                // "--file_path", "geo/rom_joints/drc/rom_joints.00600.drc"
+                "--file_path", "dyna_sbs/obj/dyna_sbs.00002.obj"
             ]
         }
     ]

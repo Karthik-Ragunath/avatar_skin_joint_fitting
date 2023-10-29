@@ -27,3 +27,84 @@ rom_joints:
 mesh.vertices.shape
 (83, 3)
 
+geo/dyna_target/drc/dyna_target.00300.drc:
+mesh.vertices.shape
+(34611, 3)
+mesh.visual.uv.shape
+(34611, 2)
+mesh.faces.shape
+(65384, 3)
+
+geo/dyna_sbs/drc/dyna_sbs.00300.drc:
+mesh.vertices.shape
+(34714, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34714, 2)
+
+geo/dyna_joints/drc/dyna_joints.00300.drc:
+mesh.vertices.shape
+(83, 3)
+
+geo/dyna_target/drc/dyna_target.00600.drc:
+mesh.vertices.shape
+(34569, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34569, 2)
+
+geo/dyna_sbs/drc/dyna_sbs.00600.drc:
+mesh.vertices.shape
+(34720, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34720, 2)
+
+geo/dyna_joints/drc/dyna_joints.00600.drc:
+mesh.vertices.shape
+(83, 3)
+
+geo/rom_target/drc/rom_target.00300.drc:
+mesh.vertices.shape
+(34606, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34606, 2)
+
+geo/rom_sbs/drc/rom_sbs.00300.drc:
+mesh.vertices.shape
+(34718, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34718, 2)
+
+geo/rom_joints/drc/rom_joints.00300.drc:
+mesh.vertices.shape
+(83, 3)
+
+geo/rom_target/drc/rom_target.00600.drc:
+mesh.vertices.shape
+(34695, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34695, 2)
+
+geo/rom_sbs/drc/rom_sbs.00600.drc:
+mesh.vertices.shape
+(34727, 3)
+mesh.faces.shape
+(65384, 3)
+mesh.visual.uv.shape
+(34727, 2)
+
+geo/rom_joints/drc/rom_joints.00600.drc:
+mesh.vertices.shape
+(83, 3)
+
+
