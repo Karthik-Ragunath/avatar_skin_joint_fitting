@@ -11,6 +11,25 @@ def open_obj(object_path):
     # texture_visuals = mesh.visual.to_texture()
     # # Access the UV coordinates from the TextureVisuals object
     # uv_coords = texture_visuals.uv
+    # texture_image = texture_visuals.image
+
+def get_texture_at_uv(uv, texture_image):
+    # Map the UV coordinate to the pixel coordinate
+    # UV coordinates are in [0, 1], so we multiply by image dimensions to get pixel coordinates
+    u, v = uv
+    x = int(u * texture_image.shape[1])
+    y = int(v * texture_image.shape[0])
+
+    # Note: image arrays are typically accessed as (y, x) not (x, y)
+    # Sample the texture image at the pixel coordinate to get the color
+    color = texture_image[y, x]
+
+    return color
+
+# uv_coord = [0.6, 0.7]
+# color = get_texture_at_uv(uv_coord, texture_image)
+
+print(f"Color at UV coordinate {uv_coord} is {color}")
 
 
 def parse_arguments():
