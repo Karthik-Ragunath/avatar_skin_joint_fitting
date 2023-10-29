@@ -38,6 +38,17 @@
                 // "--file_path", "dyna_sbs/obj/dyna_sbs.00002.obj"
                 "--file_path", "geo/dyna_sbs/obj/dyna_sbs.00231.obj"
             ]
+        },
+        {
+            "name": "render_images:pytorch3d",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/fit_mesh.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--file_path", "geo/dyna_sbs/obj/dyna_sbs.00231.obj"
+            ]
         }
     ]
 }
