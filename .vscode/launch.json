@@ -18,7 +18,8 @@
                 // "--file_path", "geo/rom_sbs/drc/rom_sbs.00600.drc"
                 // "--file_path", "geo/rom_target/drc/rom_target.00600.drc"
                 // "--file_path", "geo/rom_joints/drc/rom_joints.00600.drc"
-                "--file_path", "geo/dyna_sbs/drc/dyna_sbs.00002.drc"
+                // "--file_path", "geo/dyna_sbs/drc/dyna_sbs.00002.drc"
+                "--file_path", "geo/dyna_joints/obj/dyna_joints.00001.obj"
             ]
         },
         {
@@ -36,7 +37,8 @@
                 // "--file_path", "geo/rom_target/drc/rom_target.00600.drc"
                 // "--file_path", "geo/rom_joints/drc/rom_joints.00600.drc"
                 // "--file_path", "dyna_sbs/obj/dyna_sbs.00002.obj"
-                "--file_path", "geo/dyna_sbs/obj/dyna_sbs.00231.obj"
+                // "--file_path", "geo/dyna_sbs/obj/dyna_sbs.00231.obj"
+                "--file_path", "geo/dyna_joints/obj/dyna_joints.00001.obj"
             ]
         },
         {

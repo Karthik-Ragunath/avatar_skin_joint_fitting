@@ -67,7 +67,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
     num_condition_frames = args.num_condition_frames
     num_experts = args.num_experts
     epoch_save_interval = args.epoch_save_interval
-    num_joints = 73
+    num_joints = 83
 
     future_weights = (
         torch.ones(args.num_future_predictions)

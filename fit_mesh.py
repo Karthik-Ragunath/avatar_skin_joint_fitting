@@ -7,7 +7,7 @@ from types import SimpleNamespace
 from torch.utils.data import SequentialSampler
 from torch.utils.data import BatchSampler
 from typing import List
-from models import MultiFrameAudioAE
+from models import MultiFramePoseAE
 import torch.optim as optim
 import copy
 import os
@@ -30,7 +30,7 @@ def load_mesh(file_path):
     mesh = load_objs_as_meshes([file_path], device=torch.device("cpu"))
     return mesh
 
-def feed_auto_encoder(pose_auto_encoder: MultiFrameAudioAE, ground_truth: torch.Tensor, condition: torch.Tensor, future_weights: torch.Tensor):
+def feed_auto_encoder(pose_auto_encoder: MultiFramePoseAE, ground_truth: torch.Tensor, condition: torch.Tensor, future_weights: torch.Tensor):
     condition = condition.flatten(start_dim=1, end_dim=2)
     flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2)
     output_shape = (-1, 1, pose_auto_encoder.frame_size)
@@ -62,7 +62,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         .div_(args.num_future_predictions)
     )
 
-    pose_auto_encoder = MultiFrameAudioAE(
+    pose_auto_encoder = MultiFramePoseAE(
         frame_size,
         latent_size,
         num_condition_frames,
