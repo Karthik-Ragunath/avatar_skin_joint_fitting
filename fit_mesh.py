@@ -112,8 +112,6 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
             torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", f"{epoch}.pt"))
 
 
-
-
 if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
