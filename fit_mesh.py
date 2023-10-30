@@ -32,6 +32,7 @@ def parse_arguments():
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
     parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=10)
     parser.add_argument("--num_inference_meshes", "-num_inf", help="provide the number of meshes to be used for inference", type=int, required=False, default=2)
+    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="without_joints")
     args = parser.parse_args()
     return args
 
@@ -131,7 +132,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
 
 if __name__ == "__main__":
     timestamp = time.time()
-    human_readable_time = time.strftime('%Y-%m-%d_%H:%M:%S', time.localtime(timestamp))
+    human_readable_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(timestamp))
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
@@ -147,8 +148,8 @@ if __name__ == "__main__":
     target_files = sorted(glob.glob(os.path.join(target_file_dir, "*.obj")))
     source_files = source_files[:(-1 * num_inference_meshes)]
     target_files = target_files[:(-1 * num_inference_meshes)]
-    os.makedirs('logs', exist_ok=True)
-    file_handler = logging.FileHandler(os.path.join('logs', args.timestamp))
+    os.makedirs(os.path.join('logs', args.model_type), exist_ok=True)
+    file_handler = logging.FileHandler(os.path.join('logs', args.model_type, args.timestamp))
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)

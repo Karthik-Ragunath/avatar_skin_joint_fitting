@@ -42,12 +42,12 @@ def load_mesh(file_path):
     return mesh
 
 def feed_auto_encoder(pose_auto_encoder: MultiFramePoseAE, ground_truth: torch.Tensor, condition: torch.Tensor, future_weights: torch.Tensor):
-    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
-    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
+    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 9])
+    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 9])
     output_shape = (-1, 1, pose_auto_encoder.frame_size) # (-1, 1, 3)
 
-    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened) # torch.Size([64, 3]), torch.Size([64, 32]), torch.Size([64, 32])
-    vae_output = vae_output.view(output_shape) # torch.Size([64, 1, 3])
+    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened) # torch.Size([args.mini_batch_size, 3]), torch.Size([args.mini_batch_size, 32]), torch.Size([args.mini_batch_size, 32])
+    vae_output = vae_output.view(output_shape) # torch.Size([args.mini_batch_size, 1, 3])
     recon_loss = (vae_output - ground_truth).pow(2).mean(dim=(0, -1)) # torch.Size([3])
     recon_loss = recon_loss.mul(future_weights).sum() # tensor(1.9944, device='cuda:0', grad_fn=<SumBackward0>)
 
@@ -129,7 +129,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                     ground_truth = target_vertices[prediction_range].to(args.device) # torch.Size([64, 1, 3])
                     (vae_output, _, _), (recon_loss) = feed_auto_encoder(
                         pose_auto_encoder, ground_truth.clone(), condition.clone(), future_weights
-                    )
+                    ) # vae_output - torch.Size([args.mini_batch_size, 1, 3])
                     mesh_reconstruction_loss += float(recon_loss)
                     logger.info(f'mesh_index: {mesh_index}; mini_batch_index: {mini_batch_index} - error: {float(recon_loss)}')
                 else:
@@ -140,13 +140,13 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         if args.is_target_available:
             avg_mesh_recon_loss = mesh_reconstruction_loss / ((mini_batch_index + 1) * (mesh_index + 1))
             logger.info(f"Average reconstruction loss for mesh: {source_mesh_file_path} is {avg_mesh_recon_loss}")
-        predicted_pose_tensor = torch.stack(predicted_frame_list, dim=0)
+        predicted_pose_tensor = torch.cat(predicted_frame_list, dim=0) # torch.Size([32729, 3]) where 32729 = num_vertices - (args.num_condition_frames + 1)
         copy_pose_list = []
         for i in range(0, args.num_condition_frames-1):
             copy_pose_list.append(source_vertices[i])
         if copy_pose_list:
-            copy_pose_tensor = torch.stack(copy_pose_list, dim=0)
-            predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0)            
+            copy_pose_tensor = torch.stack(copy_pose_list, dim=0) # torch.Size([args.num_condition_frames - 1, 3])
+            predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0) # torch.Size([32731, 3]) where 32731 = num_vertices
         os.makedirs(os.path.join('inference_meshes', args.model_type), exist_ok=True)
         save_obj(f=os.path.join('inference_meshes', args.model_type, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
 
