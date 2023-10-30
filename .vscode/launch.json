@@ -64,6 +64,20 @@
                 "--target_files_dir", "geo/dyna_target/obj",
                 "--num_condition_frames", "3"
             ]
+        },
+        {
+            "name": "fit_mesh_with_joints",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/fit_mesh_with_joints.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--source_files_dir", "geo/dyna_sbs/obj",
+                "--target_files_dir", "geo/dyna_target/obj",
+                "--joint_files_dir", "geo/dyna_joints/obj",
+                "--num_condition_frames", "3"
+            ]
         }
     ]
 }
