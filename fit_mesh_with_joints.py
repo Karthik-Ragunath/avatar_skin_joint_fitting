@@ -156,7 +156,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
-    args.mini_batch_size = 16364
+    args.mini_batch_size = 32729
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
