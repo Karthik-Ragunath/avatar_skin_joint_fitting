@@ -32,7 +32,7 @@ def parse_arguments():
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
     parser.add_argument("--model_saved_path", "-saved_path", help="provide the directory where the trained model is saved", type=str, required=True)
     parser.add_argument("--is_target_available", "-tar_avail", help="is target data available?", action="store_true")
-    parser.add_argument("--model_type", "-m_type", description="provide the type of the trained model used", required=False, default="without_joints")
+    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", required=False, default="without_joints")
     args = parser.parse_args()
     return args
 
@@ -74,7 +74,6 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
     latent_size = args.latent_size
     num_condition_frames = args.num_condition_frames
     num_experts = args.num_experts
-    epoch_save_interval = args.epoch_save_interval
 
     future_weights = (
         torch.ones(1)
@@ -91,6 +90,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
 
     if os.path.exists(args.model_saved_path):
         pose_auto_encoder = torch.load(args.model_saved_path, map_location=args.device)
+    pose_auto_encoder.eval()
 
     # buffer for later
     shape = (args.mini_batch_size, args.num_condition_frames, frame_size)
@@ -152,7 +152,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
 
 if __name__ == "__main__":
     timestamp = time.time()
-    human_readable_time = time.strftime('%Y-%m-%d_%H:%M:%S', time.localtime(timestamp))
+    human_readable_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(timestamp))
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
@@ -168,8 +168,8 @@ if __name__ == "__main__":
         target_files = sorted(glob.glob(os.path.join(target_file_dir, "*.obj")))
     else:
         target_files = None
-    os.makedirs('logs', exist_ok=True)
-    file_handler = logging.FileHandler(os.path.join('logs', args.timestamp))
+    os.makedirs(os.path.join('logs', args.model_type), exist_ok=True)
+    file_handler = logging.FileHandler(os.path.join('logs', args.model_type, args.timestamp))
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)

@@ -78,6 +78,39 @@
                 "--joint_files_dir", "geo/dyna_joints/obj",
                 "--num_condition_frames", "3"
             ]
+        },
+        {
+            "name": "inferece:mesh_without_joints",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/inference_mesh.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--source_files_dir", "geo_test/dyna_sbs/obj",
+                "--target_files_dir", "geo_test/dyna_target/obj",
+                "--num_condition_frames", "3",
+                "--is_target_available",
+                "--model_saved_path", "saved_model/train_without_joints_2023-10-30_07:06:37/2.pt",
+                "--model_type", "without_joints"
+            ]
+        },
+        {
+            "name": "inferece:mesh_with_joints",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/inference_mesh_with_join.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--source_files_dir", "geo_test/dyna_sbs/obj",
+                "--target_files_dir", "geo_test/dyna_target/obj",
+                "--joint_files_dir", "geo_test/dyna_joints/obj",
+                "--num_condition_frames", "3",
+                "--is_target_available",
+                "--model_saved_path", "saved_model/with_joints/2023-10-30_10-07-10/2.pt",
+                "--model_type", "with_joints"
+            ]
         }
     ]
 }

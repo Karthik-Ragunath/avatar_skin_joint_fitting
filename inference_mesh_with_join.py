@@ -89,7 +89,6 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
     latent_size = args.latent_size
     num_condition_frames = args.num_condition_frames
     num_experts = args.num_experts
-    epoch_save_interval = args.epoch_save_interval
     num_joints = args.num_joints
 
     future_weights = (
