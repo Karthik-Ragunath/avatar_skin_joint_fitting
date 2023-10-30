@@ -124,7 +124,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         logger.info(f"Average Reconstruction for epoch: {epoch} is {avg_ep_recon_loss}")
         if epoch % epoch_save_interval == 0:
             os.makedirs("save_model", exist_ok=True)
-            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", f"{epoch}.pt"))
+            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", args.timestamp, f"{epoch}.pt"))
     os.makedirs("save_model", exist_ok=True)
     torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", args.timestamp, f"{epoch}.pt"))
 
