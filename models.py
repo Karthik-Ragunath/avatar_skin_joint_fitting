@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class MeshDeformEncoder(torch.nn):
+class MeshDeformEncoder(nn.Module):
     def __init__(
         self,
         frame_size,
@@ -21,14 +21,14 @@ class MeshDeformEncoder(torch.nn):
         self.logvar_prior = nn.Linear(prior_input_size + hidden_size, latent_size)
         
     def encode_prior(self, c):
-        h1 = F.elu(self.fc1_prior(c, dim=1))
+        h1 = F.elu(self.fc1_prior(c))
         h2 = F.elu(self.fc2_prior(torch.cat((c, h1), dim=1)))
         s = torch.cat((c, h2), dim=1)
         return self.mu_prior(s), self.logvar_prior(s)
 
     def forward(self, c):
-        mu_prior, logvar_prior = self.encode_prior(c)
-        z = mu_prior + logvar_prior
+        mu_prior, logvar_prior = self.encode_prior(c) # torch.Size([64, 32]), torch.Size([64, 32])
+        z = mu_prior + logvar_prior # torch.Size([64, 32])
         return z, mu_prior, logvar_prior
     
 class MeshDeformerDecoder(nn.Module):
@@ -93,7 +93,7 @@ class MeshDeformerDecoder(nn.Module):
             input = torch.cat((z, layer_out), dim=1).unsqueeze(1)
             mixed_bias = torch.matmul(coefficients, bias).unsqueeze(1)
             out = torch.baddbmm(mixed_bias, input, mixed_weight).squeeze(1)
-            layer_out = activation(out) if activation is not None else out
+            layer_out = activation(out) if activation is not None else out # torch.Size([64, 3])
 
         return layer_out
 
@@ -132,7 +132,7 @@ class MultiFramePoseAE(nn.Module):
         return self.decoder(z, c)
 
 
-class MeshDeformWithJointsEncoder(torch.nn):
+class MeshDeformWithJointsEncoder(nn.Module):
     def __init__(
         self,
         frame_size,
