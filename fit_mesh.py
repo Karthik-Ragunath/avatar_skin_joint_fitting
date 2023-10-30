@@ -126,7 +126,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
             os.makedirs("save_model", exist_ok=True)
             torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", f"{epoch}.pt"))
     os.makedirs("save_model", exist_ok=True)
-    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", f"{epoch}.pt"))
+    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", args.timestamp, f"{epoch}.pt"))
 
 if __name__ == "__main__":
     timestamp = time.time()
