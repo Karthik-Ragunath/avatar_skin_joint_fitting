@@ -31,6 +31,7 @@ def parse_arguments():
     parser.add_argument("--num_condition_frames", "-n_cond", help="provide number of condition frames", type=int, required=False, default=1)
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
     parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=10)
+    parser.add_argument("--num_inference_meshes", "-num_inf", help="provide the number of meshes to be used for inference", type=int, required=False, default=2)
     args = parser.parse_args()
     return args
 
@@ -120,13 +121,13 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                 ep_recon_loss += float(recon_loss)
                 logger.info(f'epoch - {epoch}; mesh_index: {mesh_index}; mini_batch_index: {mini_batch_index} - error: {float(recon_loss)}')
 
-        avg_ep_recon_loss = ep_recon_loss / (mini_batch_index * mesh_index)
+        avg_ep_recon_loss = ep_recon_loss / ((mini_batch_index + 1) * (mesh_index + 1))
         logger.info(f"Average Reconstruction for epoch: {epoch} is {avg_ep_recon_loss}")
         if epoch % epoch_save_interval == 0:
-            os.makedirs("save_model", exist_ok=True)
-            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", args.timestamp, f"{epoch}.pt"))
-    os.makedirs("save_model", exist_ok=True)
-    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("save_model", args.timestamp, f"{epoch}.pt"))
+            os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
+            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
+    os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
+    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
 
 if __name__ == "__main__":
     timestamp = time.time()
@@ -141,8 +142,11 @@ if __name__ == "__main__":
     args.timestamp = human_readable_time
     source_file_dir = args.source_files_dir
     target_file_dir = args.target_files_dir
+    num_inference_meshes = args.num_inference_meshes
     source_files = sorted(glob.glob(os.path.join(source_file_dir, "*.obj")))
     target_files = sorted(glob.glob(os.path.join(target_file_dir, "*.obj")))
+    source_files = source_files[:(-1 * num_inference_meshes)]
+    target_files = target_files[:(-1 * num_inference_meshes)]
     os.makedirs('logs', exist_ok=True)
     file_handler = logging.FileHandler(os.path.join('logs', args.timestamp))
     file_handler.setLevel(logging.DEBUG)
