@@ -26,14 +26,13 @@ def parse_arguments():
     parser.add_argument("--latent_size", "-l_size", help="provide the latent size", type=int, required=False, default=32)
     parser.add_argument("--num_embeddings", "-n_emb", help="provide number of embeddings", type=int, required=False, default=12)
     parser.add_argument("--num_experts", "-n_exp", help="provide number of experts", type=int, required=False, default=6)
-    parser.add_argument("--num_epochs", "-n_ep", help="provide number of epochs", type=int, required=False, default=2)
     parser.add_argument("--num_frames", "-n_frames", help="provide number of frames", type=int, required=False, default=60)
     parser.add_argument("--load_saved_model", "-load_model", help="if saved model must be loaded", action='store_true')
     parser.add_argument("--num_condition_frames", "-n_cond", help="provide number of condition frames", type=int, required=False, default=1)
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
-    parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=1)
+    parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=10)
     parser.add_argument("--num_inference_meshes", "-num_inf", help="provide the number of meshes to be used for inference", type=int, required=False, default=2)
-    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="without_joints")
+    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="with_joints")
     args = parser.parse_args()
     return args
 
@@ -126,16 +125,17 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         avg_ep_recon_loss = ep_recon_loss / ((mini_batch_index + 1) * (mesh_index + 1))
         logger.info(f"Average Reconstruction for epoch: {epoch} is {avg_ep_recon_loss}")
         if epoch % epoch_save_interval == 0:
-            os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
-            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
-    os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
-    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
+            os.makedirs(os.path.join("saved_model", args.model_type, args.timestamp), exist_ok=True)
+            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.model_type, args.timestamp, f"{epoch}.pt"))
+    os.makedirs(os.path.join("saved_model", args.model_type, args.timestamp), exist_ok=True)
+    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.model_type, args.timestamp, f"{epoch}.pt"))
 
 if __name__ == "__main__":
     timestamp = time.time()
-    human_readable_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(timestamp))
+    human_readable_time = time.strftime('%Y-%m-%d_%H:%M:%S', time.localtime(timestamp))
     args = parse_arguments()
     # setup parameters
+    args.num_epochs = 2
     args.mini_batch_size = 32729
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
@@ -148,8 +148,8 @@ if __name__ == "__main__":
     target_files = sorted(glob.glob(os.path.join(target_file_dir, "*.obj")))
     source_files = source_files[:(-1 * num_inference_meshes)]
     target_files = target_files[:(-1 * num_inference_meshes)]
-    os.makedirs(os.path.join('logs', args.model_type), exist_ok=True)
-    file_handler = logging.FileHandler(os.path.join('logs', args.model_type, args.timestamp))
+    os.makedirs('logs', exist_ok=True)
+    file_handler = logging.FileHandler(os.path.join('logs', args.timestamp))
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
