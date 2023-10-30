@@ -31,7 +31,7 @@ def parse_arguments():
     parser.add_argument("--load_saved_model", "-load_model", help="if saved model must be loaded", action='store_true')
     parser.add_argument("--num_condition_frames", "-n_cond", help="provide number of condition frames", type=int, required=False, default=1)
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
-    parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=10)
+    parser.add_argument("--epoch_save_interval", "-save_interval", help="provide the eppch interval to save the model", type=int, required=False, default=1)
     parser.add_argument("--num_inference_meshes", "-num_inf", help="provide the number of meshes to be used for inference", type=int, required=False, default=2)
     parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="with_joints")
     args = parser.parse_args()
@@ -60,13 +60,13 @@ def feed_auto_encoder(
     future_weights: torch.Tensor,
     joint_condition: torch.Tensor
 ):
-    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
-    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
-    joint_condition_flattened = joint_condition.clone().flatten(start_dim=1, end_dim=2)
+    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 9])
+    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 3])
+    joint_condition_flattened = joint_condition.clone().flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 249])
     output_shape = (-1, 1, pose_auto_encoder.frame_size) # (-1, 1, 3)
 
-    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened, joint_condition_flattened) # torch.Size([64, 3]), torch.Size([64, 32]), torch.Size([64, 32])
-    vae_output = vae_output.view(output_shape) # torch.Size([64, 1, 3])
+    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened, joint_condition_flattened) # torch.Size([args.mini_batch_size, 3]), torch.Size([args.mini_batch_size, 32]), torch.Size([args.mini_batch_size, 32])
+    vae_output = vae_output.view(output_shape) # torch.Size([args.mini_batch_size, 1, 3])
     recon_loss = (vae_output - ground_truth).pow(2).mean(dim=(0, -1)) # torch.Size([3])
     recon_loss = recon_loss.mul(future_weights).sum() # tensor(1.9944, device='cuda:0', grad_fn=<SumBackward0>)
 
@@ -82,9 +82,9 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
     num_joints = args.num_joints
 
     future_weights = (
-        torch.ones(args.num_future_predictions)
+        torch.ones(1)
         .to(args.device)
-        .div_(args.num_future_predictions)
+        .div_(1)
     )
 
     pose_auto_encoder = MultiFramePoseWithJointsAE(
@@ -94,6 +94,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         num_experts,
         num_joints
     ).to(args.device)
+    pose_auto_encoder.train()
 
     vae_optimizer = optim.Adam(pose_auto_encoder.parameters(), lr=args.initial_lr)
 
@@ -106,10 +107,10 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         ep_recon_loss = 0
         mesh_index = 1 # for maintaining coding practice, since mesh_index will be used down the line for division
         for mesh_index, (source_mesh_file_path, target_mesh_file_path, joint_file_path) in enumerate(zip(source_mesh_file_paths, target_mesh_file_paths, joints_file_paths)):
-            source_mesh, source_vertices, source_faces = load_mesh(source_mesh_file_path)
-            target_mesh, target_vertices, target_faces = load_mesh(target_mesh_file_path)
-            joint_mesh, joint_vertices, _ = load_joint_mesh(joint_file_path)
-            joint_condition = joint_vertices.clone().unsqueeze(0).repeat(args.mini_batch_size, 1, 1).to(args.device)
+            source_mesh, source_vertices, source_faces = load_mesh_data(source_mesh_file_path)
+            target_mesh, target_vertices, target_faces = load_mesh_data(target_mesh_file_path)
+            joint_mesh, joint_vertices, _ = load_joint_mesh(joint_file_path) 
+            joint_condition = joint_vertices.clone().unsqueeze(0).repeat(args.mini_batch_size, 1, 1).to(args.device) # torch.Size([16364, 83, 3])
             selectable_indices = range(args.num_condition_frames - 1, source_vertices.shape[0], 1)
             sampler = BatchSampler(
                 SequentialSampler(selectable_indices),
@@ -119,21 +120,21 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
             mini_batch_index = 1 # for maintaining coding practice, since mini_batch_index will be used down the line for division
             for mini_batch_index, indices in enumerate(sampler):
                 selected_indices = [selectable_indices[index] for index in indices]
-                t_indices = torch.LongTensor(selected_indices)
+                t_indices = torch.LongTensor(selected_indices) # torch.Size([args.mini_batch_size])
                 condition_range = (
                     t_indices.repeat((args.num_condition_frames, 1)).t()
                     - torch.arange(args.num_condition_frames - 1, -1, -1).long()
-                ) # torch.Size([64, 3])
+                ) # torch.Size([args.mini_batch_size, 3])
                 offset = 0 # offset set to zero, increasing it will modify which future frame you want to predict
                 prediction_range = (
                     t_indices.repeat((1, 1)).t()
                     + torch.arange(offset, offset + 1).long()
-                ) # torch.Size([64, 1])
-                condition[:, :args.num_condition_frames].copy_(source_vertices[condition_range]) # torch.Size([64, 3, 3])
-                ground_truth = target_vertices[prediction_range].to(args.device) # torch.Size([64, 1, 3])
+                ) # torch.Size([args.mini_batch_size, 1])
+                condition[:, :args.num_condition_frames].copy_(source_vertices[condition_range]) # torch.Size([args.mini_batch_size, 3, 3])
+                ground_truth = target_vertices[prediction_range].to(args.device) # torch.Size([args.mini_batch_size, 1, 3])
                 (vae_output, _, _), (recon_loss) = feed_auto_encoder(
                     pose_auto_encoder, ground_truth.clone(), condition.clone(), future_weights, joint_condition.clone()
-                )
+                ) # torch.Size([args.mini_batch_size, 1, 3])
                 vae_optimizer.zero_grad()
                 (recon_loss).backward()
                 vae_optimizer.step()
@@ -155,7 +156,7 @@ if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
-    args.mini_batch_size = 32729
+    args.mini_batch_size = 16364
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
@@ -167,7 +168,7 @@ if __name__ == "__main__":
     num_inference_meshes = args.num_inference_meshes
     source_files = sorted(glob.glob(os.path.join(source_files_dir, "*.obj")))
     target_files = sorted(glob.glob(os.path.join(target_files_dir, "*.obj")))
-    joint_files = sorted(glob.glob(os.path.joint(joint_files_dir, "*.obj")))
+    joint_files = sorted(glob.glob(os.path.join(joint_files_dir, "*.obj")))
     source_files = source_files[:(-1 * num_inference_meshes)]
     target_files = target_files[:(-1 * num_inference_meshes)]
     joint_files = joint_files[:(-1 * num_inference_meshes)]

@@ -41,12 +41,12 @@ def load_mesh(file_path):
     return mesh
 
 def feed_auto_encoder(pose_auto_encoder: MultiFramePoseAE, ground_truth: torch.Tensor, condition: torch.Tensor, future_weights: torch.Tensor):
-    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
-    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([64, 9])
+    condition_flattened = condition.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 9])
+    flattened_truth = ground_truth.flatten(start_dim=1, end_dim=2) # torch.Size([args.mini_batch_size, 9])
     output_shape = (-1, 1, pose_auto_encoder.frame_size) # (-1, 1, 3)
 
-    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened) # torch.Size([64, 3]), torch.Size([64, 32]), torch.Size([64, 32])
-    vae_output = vae_output.view(output_shape) # torch.Size([64, 1, 3])
+    vae_output, mu_prior, logvar_prior = pose_auto_encoder(condition_flattened) # torch.Size([args.mini_batch_size, 3]), torch.Size([args.mini_batch_size, 32]), torch.Size([args.mini_batch_size, 32])
+    vae_output = vae_output.view(output_shape) # torch.Size([args.mini_batch_size, 1, 3])
     recon_loss = (vae_output - ground_truth).pow(2).mean(dim=(0, -1)) # torch.Size([3])
     recon_loss = recon_loss.mul(future_weights).sum() # tensor(1.9944, device='cuda:0', grad_fn=<SumBackward0>)
 
@@ -104,14 +104,14 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                 condition_range = (
                     t_indices.repeat((args.num_condition_frames, 1)).t()
                     - torch.arange(args.num_condition_frames - 1, -1, -1).long()
-                ) # torch.Size([64, 3])
+                ) # torch.Size([args.mini_batch_size, 3])
                 offset = 0 # offset set to zero, increasing it will modify which future frame you want to predict
                 prediction_range = (
                     t_indices.repeat((1, 1)).t()
                     + torch.arange(offset, offset + 1).long()
-                ) # torch.Size([64, 1])
-                condition[:, :args.num_condition_frames].copy_(source_vertices[condition_range]) # torch.Size([64, 3, 3])
-                ground_truth = target_vertices[prediction_range].to(args.device) # torch.Size([64, 1, 3])
+                ) # torch.Size([args.mini_batch_size, 1])
+                condition[:, :args.num_condition_frames].copy_(source_vertices[condition_range]) # torch.Size([args.mini_batch_size, 3, 3])
+                ground_truth = target_vertices[prediction_range].to(args.device) # torch.Size([args.mini_batch_size, 1, 3])
                 (vae_output, _, _), (recon_loss) = feed_auto_encoder(
                     pose_auto_encoder, ground_truth.clone(), condition.clone(), future_weights
                 )

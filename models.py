@@ -152,13 +152,13 @@ class MeshDeformWithJointsEncoder(nn.Module):
         self.logvar_prior = nn.Linear(prior_input_size + prior_joint_size + hidden_size, latent_size)
         
     def encode_prior(self, c, joints):
-        h1 = F.elu(self.fc1_prior(torch.cat(c, joints), dim=1))
+        h1 = F.elu(self.fc1_prior(torch.cat((c, joints), dim=1)))
         h2 = F.elu(self.fc2_prior(torch.cat((c, joints, h1), dim=1)))
         s = torch.cat((c, joints, h2), dim=1)
         return self.mu_prior(s), self.logvar_prior(s)
 
-    def forward(self, c):
-        mu_prior, logvar_prior = self.encode_prior(c)
+    def forward(self, c, joints):
+        mu_prior, logvar_prior = self.encode_prior(c, joints)
         z = mu_prior + logvar_prior
         return z, mu_prior, logvar_prior
     
