@@ -85,7 +85,6 @@ def feed_auto_encoder_inference(
 
 def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_paths: List, joints_file_paths: List):
     frame_size = args.frame_size
-    num_epochs = args.num_epochs
     latent_size = args.latent_size
     num_condition_frames = args.num_condition_frames
     num_experts = args.num_experts
@@ -171,7 +170,6 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
 if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
-    args.num_epochs = 2
     args.mini_batch_size = 32729
     args.initial_lr = 1e-4
     args.final_lr = 1e-7

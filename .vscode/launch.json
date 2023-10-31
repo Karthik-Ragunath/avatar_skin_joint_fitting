@@ -113,7 +113,7 @@
             "name": "inferece:mesh_with_joints",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/inference_mesh_with_join.py",
+            "program": "${workspaceFolder}/inference_mesh_with_joints.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
@@ -123,7 +123,8 @@
                 "--num_condition_frames", "3",
                 "--is_target_available",
                 "--model_saved_path", "saved_model/with_joints/2023-10-30_10-07-10/2.pt",
-                "--model_type", "with_joints"
+                "--model_type", "inference_with_joints",
+                "--device", "cuda:2"
             ]
         }
     ]
