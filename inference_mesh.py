@@ -24,6 +24,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source_files_dir", "-src", help="Path to the source .obj files", required=True)
     parser.add_argument("--target_files_dir", "-tar", help="Path to the target .obj files", required=False)
+    parser.add_argument("--mini_batch_size", "-min_batch", help="provide mini batch size", required=False, type=int, default=32729)
     parser.add_argument("--latent_size", "-l_size", help="provide the latent size", type=int, required=False, default=32)
     parser.add_argument("--num_embeddings", "-n_emb", help="provide number of embeddings", type=int, required=False, default=12)
     parser.add_argument("--num_experts", "-n_exp", help="provide number of experts", type=int, required=False, default=6)
@@ -107,7 +108,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         sampler = BatchSampler(
             SequentialSampler(selectable_indices),
             args.mini_batch_size,
-            drop_last=True,
+            drop_last=False,
         )
         predicted_frame_list = []
         mini_batch_index = 1 # for maintaining coding practice, since mini_batch_index will be used down the line for division
@@ -138,7 +139,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                     )
                 predicted_frame_list.append(vae_output[:, 0].clone().detach().cpu())
         if args.is_target_available:
-            avg_mesh_recon_loss = mesh_reconstruction_loss / ((mini_batch_index + 1) * (mesh_index + 1))
+            avg_mesh_recon_loss = mesh_reconstruction_loss / ((mini_batch_index + 1) * (1))
             logger.info(f"Average reconstruction loss for mesh: {source_mesh_file_path} is {avg_mesh_recon_loss}")
         predicted_pose_tensor = torch.cat(predicted_frame_list, dim=0) # torch.Size([32729, 3]) where 32729 = num_vertices - (args.num_condition_frames + 1)
         copy_pose_list = []
@@ -151,15 +152,13 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         save_obj(f=os.path.join('inference_meshes', args.model_type, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
 
 if __name__ == "__main__":
-    timestamp = time.time()
-    human_readable_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(timestamp))
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
-    args.mini_batch_size = 32729
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
+    human_readable_time = args.model_saved_path.split('/')[-2]
     args.timestamp = human_readable_time
     source_file_dir = args.source_files_dir
     source_files = sorted(glob.glob(os.path.join(source_file_dir, "*.obj")))

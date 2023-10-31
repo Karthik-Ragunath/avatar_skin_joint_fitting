@@ -123,7 +123,7 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         sampler = BatchSampler(
             SequentialSampler(selectable_indices),
             args.mini_batch_size,
-            drop_last=True,
+            drop_last=False,
         )
         predicted_pose_list = []
         mini_batch_index = 1 # for maintaining coding practice, since mini_batch_index will be used down the line for division
@@ -154,23 +154,23 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
                     ) # torch.Size([args.mini_batch_size, 1, 3])
                 predicted_pose_list.append(vae_output[:, 0].clone().detach().cpu())
         if args.is_target_available:
-            avg_mesh_recon_loss = mesh_reconstruction_loss / ((mini_batch_index + 1) * (mesh_index + 1))
-            logger.info(f"Average Reconstruction for mesh: {source_mesh_file_path} is {avg_mesh_recon_loss}")
-        predicted_pose_tensor = torch.stack(predicted_pose_list, dim=0)
+            avg_mesh_recon_loss = mesh_reconstruction_loss / ((mini_batch_index + 1) * (1))
+            logger.info(f"Average reconstruction loss for mesh: {source_mesh_file_path} is {avg_mesh_recon_loss}")
+        predicted_pose_tensor = torch.cat(predicted_pose_list, dim=0) # torch.Size([32729, 3]) where 32729 = num_vertices - (args.num_condition_frames + 1)
         copy_pose_list = []
         for i in range(0, args.num_condition_frames-1):
             copy_pose_list.append(source_vertices[i])
         if copy_pose_list:
-            copy_pose_tensor = torch.stack(copy_pose_list, dim=0)
-            predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0)            
-        os.makedirs(os.path.join('inference_meshes', args.model_type, args.time_stamp), exist_ok=True)
-        save_obj(f=os.path.join('inference_meshes', args.model_type, args.time_stamp, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
+            copy_pose_tensor = torch.stack(copy_pose_list, dim=0) # torch.Size([args.num_condition_frames - 1, 3])
+            predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0) # torch.Size([32731, 3]) where 32731 = num_vertices
+        os.makedirs(os.path.join('inference_meshes', args.model_type, args.timestamp), exist_ok=True)
+        save_obj(f=os.path.join('inference_meshes', args.model_type, args.timestamp, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
 
 
 if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
-    args.mini_batch_size = 32729
+    args.mini_batch_size = 8182
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
