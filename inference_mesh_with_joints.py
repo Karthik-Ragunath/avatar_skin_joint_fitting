@@ -103,6 +103,9 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         num_experts,
         num_joints
     ).to(args.device)
+
+    if os.path.exists(args.model_saved_path):
+        pose_auto_encoder = torch.load(args.model_saved_path, map_location=args.device)
     pose_auto_encoder.eval()
 
     # buffer for later
