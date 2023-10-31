@@ -65,7 +65,7 @@ inference_mesh.py
 
 `REFER SECTION 3 FOR DETAILED STEPS TO RUN THE ABOVE TRAINING AND INFERENCE PIPELINES WITH CORRECT CONFIGS`
 
-P.S. - SECTION 3 also contains steps to run training and inference pipelines of other two architectures too.
+`P.S. - SECTION 3 also contains steps to run training and inference pipelines of other two architectures too.`
 
 ```
 P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
