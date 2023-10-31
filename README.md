@@ -80,6 +80,11 @@ Even using millions of parameters do not guarantee convergence.
 ### 1.2.2. `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
 
+### __PS:__
+
+### `DUE TO COMPUTE POWER CONSTRAINTS, I STOPPED TRAINING AT 20 EPOCHS.`
+### `IF I HAD TRAINED FOR MORE EPOCHS RESULTS WOULD HAVE BEEN EVEN BETTER`
+
 ----------------------
 __LET'S SEE THINGS IN DETAIL__
 
