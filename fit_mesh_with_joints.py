@@ -24,6 +24,8 @@ def parse_arguments():
     parser.add_argument("--source_files_dir", "-src", help="Path to the source .obj files", required=True)
     parser.add_argument("--target_files_dir", "-tar", help="Path to the target .obj files", required=True)
     parser.add_argument("--joint_files_dir", "-src_joint", help="Path to the joint .obj files", required=True)
+    parser.add_argument("--mini_batch_size", "-min_batch", help="provide mini batch size", required=False, type=int, default=32729)
+    parser.add_argument("--num_joints", "-n_joints", help="provide number of joint vertices per mesh", required=False, type=int, default=83)
     parser.add_argument("--latent_size", "-l_size", help="provide the latent size", type=int, required=False, default=32)
     parser.add_argument("--num_embeddings", "-n_emb", help="provide number of embeddings", type=int, required=False, default=12)
     parser.add_argument("--num_experts", "-n_exp", help="provide number of experts", type=int, required=False, default=6)
@@ -156,12 +158,10 @@ if __name__ == "__main__":
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
-    args.mini_batch_size = 32729
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
     args.timestamp = human_readable_time
-    args.num_joints = 83
     source_files_dir = args.source_files_dir
     target_files_dir = args.target_files_dir
     joint_files_dir = args.joint_files_dir
