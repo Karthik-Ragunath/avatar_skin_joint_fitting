@@ -230,11 +230,11 @@ At the end of my experiment, variant 1 produced the best possible result both in
 ### 4.4 INFERENCE RESULTS ON TEST DATA AT THE END OF TWO EPOCH FOR EACH OF THE VARIANT
 
 1. `Multi-Pose Encoder With Multi-Expert Decoder`
-![Variant 1][loss_curves/variant_1.jpg]
+![Variant 1](loss_curves/variant_1.jpg)
 
 2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder`
-![Variant 2][loss_curves/variant_2.jpg]
+![Variant 2](loss_curves/variant_2.jpg)
 
 3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss`
-![Variant 3][loss_curves/variant_3.jpg]
+![Variant 3](loss_curves/variant_3.jpg)
 
