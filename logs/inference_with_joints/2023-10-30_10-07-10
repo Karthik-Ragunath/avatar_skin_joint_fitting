@@ -1,0 +1,34 @@
+2023-10-30 20:49:51,784 | INFO | mesh_index: 0; mini_batch_index: 0 - error: 0.3111114799976349
+2023-10-30 20:49:51,849 | INFO | mesh_index: 0; mini_batch_index: 1 - error: 0.28274786472320557
+2023-10-30 20:49:51,895 | INFO | mesh_index: 0; mini_batch_index: 2 - error: 0.3423713743686676
+2023-10-30 20:49:51,934 | INFO | mesh_index: 0; mini_batch_index: 3 - error: 0.45501580834388733
+2023-10-30 20:49:51,934 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00799.obj is 0.34781163185834885
+2023-10-30 20:49:59,058 | INFO | mesh_index: 1; mini_batch_index: 0 - error: 0.3156205713748932
+2023-10-30 20:49:59,077 | INFO | mesh_index: 1; mini_batch_index: 1 - error: 0.2874053716659546
+2023-10-30 20:49:59,100 | INFO | mesh_index: 1; mini_batch_index: 2 - error: 0.3473670184612274
+2023-10-30 20:49:59,122 | INFO | mesh_index: 1; mini_batch_index: 3 - error: 0.4572073519229889
+2023-10-30 20:49:59,124 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00800.obj is 0.351900078356266
+2023-10-30 20:56:46,134 | INFO | mesh_index: 0; mini_batch_index: 0 - error: 0.32351309061050415
+2023-10-30 20:56:46,158 | INFO | mesh_index: 0; mini_batch_index: 1 - error: 0.29449743032455444
+2023-10-30 20:56:46,180 | INFO | mesh_index: 0; mini_batch_index: 2 - error: 0.3549177050590515
+2023-10-30 20:56:46,202 | INFO | mesh_index: 0; mini_batch_index: 3 - error: 0.47063350677490234
+2023-10-30 20:56:46,225 | INFO | mesh_index: 0; mini_batch_index: 4 - error: 1.0136479139328003
+2023-10-30 20:56:46,227 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00799.obj is 0.49144192934036257
+2023-10-30 20:56:49,643 | INFO | mesh_index: 1; mini_batch_index: 0 - error: 0.3287826180458069
+2023-10-30 20:56:49,663 | INFO | mesh_index: 1; mini_batch_index: 1 - error: 0.29995137453079224
+2023-10-30 20:56:49,681 | INFO | mesh_index: 1; mini_batch_index: 2 - error: 0.36061567068099976
+2023-10-30 20:56:49,697 | INFO | mesh_index: 1; mini_batch_index: 3 - error: 0.473437637090683
+2023-10-30 20:56:49,706 | INFO | mesh_index: 1; mini_batch_index: 4 - error: 1.0112956762313843
+2023-10-30 20:56:49,706 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00800.obj is 0.49481659531593325
+2023-10-30 21:50:07,718 | INFO | mesh_index: 0; mini_batch_index: 0 - error: 0.00527830608189106
+2023-10-30 21:50:07,730 | INFO | mesh_index: 0; mini_batch_index: 1 - error: 0.005221627652645111
+2023-10-30 21:50:07,749 | INFO | mesh_index: 0; mini_batch_index: 2 - error: 0.004531614016741514
+2023-10-30 21:50:07,774 | INFO | mesh_index: 0; mini_batch_index: 3 - error: 0.006145854480564594
+2023-10-30 21:50:07,803 | INFO | mesh_index: 0; mini_batch_index: 4 - error: 0.01218327134847641
+2023-10-30 21:50:07,805 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00799.obj is 0.0066721347160637375
+2023-10-30 21:50:11,345 | INFO | mesh_index: 1; mini_batch_index: 0 - error: 0.007734282407909632
+2023-10-30 21:50:11,359 | INFO | mesh_index: 1; mini_batch_index: 1 - error: 0.007792018353939056
+2023-10-30 21:50:11,374 | INFO | mesh_index: 1; mini_batch_index: 2 - error: 0.006737684831023216
+2023-10-30 21:50:11,389 | INFO | mesh_index: 1; mini_batch_index: 3 - error: 0.008675948716700077
+2023-10-30 21:50:11,400 | INFO | mesh_index: 1; mini_batch_index: 4 - error: 0.015299159102141857
+2023-10-30 21:50:11,400 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00800.obj is 0.009247818682342767
