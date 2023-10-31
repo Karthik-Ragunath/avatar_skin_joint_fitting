@@ -290,7 +290,8 @@ I used `dyna` class data for this experiment where I trained 1st to 798th data s
 
 ### 4.3 `Neural Network (Architecture) Variations Considered:`
 
-(i) `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture:
+`(i) Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture:
+
 This architure only take `sbs` data for input and does not take `joints` data into consideration
 The encoder network in this architecture is designed to take n-1 previous conditional frames as input along with the nth frame to produce the nth frame of the scan. 
 For my experiments, I trained the model with n=3 conditional frames.
@@ -311,10 +312,12 @@ The output from each expert (arm) in the decoder is sequentially fed as input to
 The idea behind this approach is that different expert arm in the decoder may learn different aspects from latent space of the encoder. 
 This is true especially in the case where the latent space is somewhat disentangled which will help in predicting more precise outputs.
 
-(ii) `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture
+`(ii) Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture:
+
 In the second variant, apart from sbs pose parameters, joint coordinates are also used. Since number of vertices in sbs data and ground truth scan (32729) is different when compared to number of vertices in the joint data (83), corresponding vertex information from multiple conditional frames are combined along with entire joint vertex info of a mesh and this is fed as input to encoder to generate latent representation.
 
-(iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
+`(iii) Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture:
+
 The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
 
 
