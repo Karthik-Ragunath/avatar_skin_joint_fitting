@@ -253,6 +253,11 @@ Due to lack of compute power and time constraints, I followed the following heur
 ### 4.1 `Heurestic:`
 I will train for two epochs on three possible neural network architectures I designed and then pick the model with the lowest loss value and also eye balling the results of using that model on test data (data not seen during training).
 
+```
+This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
+At the end of my experiment, variant 1 produced the best possible result both interms of deterministic loss value and also in terms of eye-balling test.
+```
+
 ### 4.2 `Dataset Split:`
 I used `dyna` class data for this experiment where I trained 1st to 798th data samples and used 799th and 800th data sample for inference.
 
@@ -285,10 +290,6 @@ In the second variant, apart from sbs pose parameters, joint coordinates are als
 (iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
 The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
 
-```
-This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
-At the end of my experiment, variant 1 produced the best possible result both interms of deterministic loss value and also in terms of eye-balling test.
-```
 
 ### 4.4 INFERENCE RESULTS ON TEST DATA AT THE END OF TWO EPOCHS FOR EACH OF THE ARCHITECTURE VARIANT
 
