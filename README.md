@@ -45,6 +45,39 @@ Even using millions of parameters do not guarantee convergence.
 python 3.10
 ```
 
+### 2.1 Environment Creation Steps
+
+I recommend using conda or python virtual environments to create sandboxed environment.
+
+Although python virtual environments are better especially for users who are proficient enough to manage version dependencies by themselves,
+there is a drawback that sometimes virtual environments require you to modulate environment variables or create softlinks/hardlinks especially when using pytorch, tensorflow and pytorch3D which require `sudo` access.
+
+So, if you are someone like me who is using a shared gpu resource for training, most of the times, you will not have root access.
+In this case, conda environments are much better.
+
+__2.1.1.__ Install anaconda/ miniconda
+
+__2.1.2.__ Create conda environment
+```
+conda create -n avatar_os python=3.10
+conda 
+```
+
+__2.1.3.__ Pip and conda installations
+```
+pip install trimesh
+pip install DracoPy
+pip install numpy
+pip install matplotlib
+pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1 --index-url https://download.pytorch.org/whl/cu118
+pip install scipy
+conda install -c fvcore -c iopath -c conda-forge fvcore iopath
+pip install scikit-image matplotlib imageio plotly opencv-python
+pip install black usort flake8 flake8-bugbear flake8-comprehensions
+pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.com/pytorch3d/packaging/wheels/py310_cu117_pyt200/download.html
+pip install -U 'git+https://github.com/facebookresearch/iopath'
+```
+
 ## 3. CONFIGS (+ Sample VSCode debugger templates to run train and infer from models)
 
 ### 3.1 CONFIGS
