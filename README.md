@@ -247,7 +247,7 @@ frame_size = 3 # Dimension of each vertex
 }
 ```
 
-### 3.3.3. Trained Models
+### 3.3.3. Trained Models Location
 
 #### `3.3.3.1. Epoch - 2 Trained Model For Heurestic Estimation`
 
