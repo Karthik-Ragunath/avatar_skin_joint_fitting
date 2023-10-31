@@ -42,17 +42,6 @@
             ]
         },
         {
-            "name": "render_images:pytorch3d",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/fit_mesh.py",
-            "console": "integratedTerminal",
-            "justMyCode": true,
-            "args": [
-                "--file_path", "geo/dyna_sbs/obj/dyna_sbs.00231.obj"
-            ]
-        },
-        {
             "name": "fit_mesh",
             "type": "python",
             "request": "launch",
