@@ -30,7 +30,7 @@ def parse_arguments():
     parser.add_argument("--num_frames", "-n_frames", help="provide number of frames", type=int, required=False, default=60)
     parser.add_argument("--num_condition_frames", "-n_cond", help="provide number of condition frames", type=int, required=False, default=1)
     parser.add_argument("--device", "-dev", help="provide the device to use for training: cuda:0 or cpu", type=str, required=False, default="cuda:0")
-    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="with_joints")
+    parser.add_argument("--model_type", "-m_type", help="provide the type of the trained model used", type=str, required=False, default="with_joints_inference")
     parser.add_argument("--model_saved_path", "-saved_path", help="provide the directory where the trained model is saved", type=str, required=True)
     parser.add_argument("--is_target_available", "-tar_avail", help="is target data available?", action="store_true")
     args = parser.parse_args()
@@ -164,13 +164,11 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         if copy_pose_list:
             copy_pose_tensor = torch.stack(copy_pose_list, dim=0)
             predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0)            
-        os.makedirs(os.path.join('inference_meshes', args.model_type), exist_ok=True)
-        save_obj(f=os.path.join('inference_meshes', args.model_type, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
+        os.makedirs(os.path.join('inference_meshes', args.model_type, args.time_stamp), exist_ok=True)
+        save_obj(f=os.path.join('inference_meshes', args.model_type, args.time_stamp, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
 
 
 if __name__ == "__main__":
-    timestamp = time.time()
-    human_readable_time = time.strftime('%Y-%m-%d_%H-%M-%S', time.localtime(timestamp))
     args = parse_arguments()
     # setup parameters
     args.num_epochs = 2
@@ -178,6 +176,7 @@ if __name__ == "__main__":
     args.initial_lr = 1e-4
     args.final_lr = 1e-7
     args.frame_size = 3 # vertex data dimension in 3d world
+    human_readable_time = args.model_saved_path.split('/')[-2]
     args.timestamp = human_readable_time
     args.num_joints = 83
     source_files_dir = args.source_files_dir
