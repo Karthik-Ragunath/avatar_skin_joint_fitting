@@ -37,8 +37,18 @@ The output from each expert (arm) in the decoder is sequentially fed as input to
 
 The idea behind this approach is that different expert arm in the decoder may learn different aspects from latent space of the encoder. 
 This is true especially in the case where the latent space is somewhat disentangled which will help in predicting more precise outputs.
+```
 
------------------------
+Moreover, I have designed three (3) different neural network architecture variations for solving this problems.
+The architecture details, results and plots are explained in detail in the coming paragraphs
+
+(i) `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture
+
+(ii) `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture
+
+(iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
+
+```
 P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
 Even using millions of parameters do not guarantee convergence.
 ```
@@ -120,7 +130,11 @@ pip install -U 'git+https://github.com/facebookresearch/iopath'
 frame_size = 3 # Dimension of each vertex
 ```
 
-### 3.2 Sample VSCode debugger templates
+### 3.2 `Sample VSCode debugger templates for training and inference pipelines`
+
+### 3.2.1. `TRAINING`
+
+#### 3.2.1.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture Training
 
 `fit_mesh` (without joints by only using sbs)
 ```
@@ -138,6 +152,8 @@ frame_size = 3 # Dimension of each vertex
     ]
 }
 ```
+
+#### 3.2.1.2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture Training
 
 `fit_mesh_with_joints` (using sbs + joints to predict GT scan)`
 ```
@@ -157,6 +173,8 @@ frame_size = 3 # Dimension of each vertex
 }
 ```
 
+#### 3.2.1.3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture Training
+
 `fit_mesh_without_joints:smoothened` (using sbs data to fit ground truth scan while also including laplacian smoothing loss)
 ```
 {
@@ -174,6 +192,11 @@ frame_size = 3 # Dimension of each vertex
     ]
 }
 ```
+
+### 3.2.2. `INFERENCE`
+
+#### 3.2.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` and  
+#### `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture Inferencing
 
 `inferece:mesh_without_joints` (inference pipeline for using model trained to predict ground truth scan only using sbs)
 ```
@@ -197,6 +220,8 @@ frame_size = 3 # Dimension of each vertex
     ]
 }
 ```
+
+#### 3.2.2.2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture Inferencing
 
 `inferece:mesh_with_joints` (inference pipeline for using model trained to predict ground truth scan using sbs + joints)
 ```
@@ -233,13 +258,13 @@ I used `dyna` class data for this experiment where I trained 1st to 798th data s
 
 ### 4.3 `Neural Network (Architecture) Variations Considered:`
 
-(i) `Multi-Pose Encoder With Multi-Expert Decoder`
+(i) `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture
 The first variant is the neural network architecture explained in section 1.
 
-(ii) `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder`
+(ii) `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture
 In the second variant, apart from sbs pose parameters, joint coordinates are also used. Since number of vertices in sbs data and ground truth scan (32729) is different when compared to number of vertices in the joint data (83), corresponding vertex information from multiple conditional frames are combined along with entire joint vertex info of a mesh and this is fed as input to encoder to generate latent representation.
 
-(iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss`
+(iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
 The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
 
 This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
