@@ -277,12 +277,16 @@ __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:
 ----------------------
 ## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder VARIANT FOR 20 EPOCHS
 
-__INFERENCING ON:__
+### 5.1 TRAINING LOSS FOR 20 EPOCHS
 
-### 5.1 `dyna_sbs.00799.obj`
+![fine_tuned_variant_1.jpg](loss_curves/fine_tuned_variant_1.jpg)
+
+### 5.2 INFERENCING ON:
+
+### 5.2.1 `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
 
-### 5.2 `dyna_sbs.00800.obj`
+### 5.2.2 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
 
 ----------------------
