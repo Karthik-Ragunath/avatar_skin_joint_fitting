@@ -340,23 +340,23 @@ __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:
 ----------------------
 ## 6. `Trained Models Location`
 
-#### `6.1. Epoch - 2 Trained Model For Heurestic Estimation`
+### `6.1. Epoch - 2 Trained Model For Heurestic Estimation`
 
-`Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
+#### 6.1.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
 
 __saved_model/without_joints/2023-10-30_07-06-37/2.pt__
 
-`Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder:
+#### 6.1.2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder:
 
 __saved_model/with_joints/2023-10-30_10-07-10/2.pt__
 
-`Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder:
+#### 6.1.3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder:
 
 __saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt__
 
-#### `6.2. Epoch 20 - Refined Model`
+### `6.2. Epoch 20 - Refined Model`
 
-`Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
+#### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
 
 __saved_model/without_joints/2023-10-30_18-58-35/20.pt__
 
