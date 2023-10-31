@@ -56,6 +56,21 @@
             ]
         },
         {
+            "name": "fit_mesh_without_joints",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/fit_mesh_without_joints.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                "--source_directories", "geo/dyna_sbs/obj", "geo/rom_sbs/obj",
+                "--target_directories", "geo/dyna_target/obj", "geo/rom_target/obj",
+                "--num_condition_frames", "3",
+                "--device", "cuda:1",
+                "--num_epochs", "46"
+            ]
+        },
+        {
             "name": "fit_mesh_with_joints",
             "type": "python",
             "request": "launch",
