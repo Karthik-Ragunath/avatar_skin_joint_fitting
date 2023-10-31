@@ -5,21 +5,38 @@
 ```
 I have designed an auto-encoder based neural network architecture to solve this task.
 
-The auto-encoder I designed, takes in vertex coordinates as input, generates a low latent representation of it which is then fed into a decoder which is trained to produce the vertices of the ground truth scan. 
+The auto-encoder I designed, 
+(i) takes in vertex coordinates as input, 
+(ii) generates a low latent representation of it,
+(ii) which is then fed into a decoder which is trained to produce the vertices of the ground truth scan. 
 
-The encoder network in this architecture is designed to take n-1 previous conditional frames as input along with the nth frame to produce the nth frame of the scan. For my experiments, I trained the model with n=3 conditional frames.
+The encoder network in this architecture is designed to take n-1 previous conditional frames as input along with the nth frame to produce the nth frame of the scan. 
+
+For my experiments, I trained the model with n=3 conditional frames.
+
 For example, to predict nth frame, lets 100th frame's grouth truth scan value
 n-2 + n-1        +        n          frames are taken as input.
 (conditional)        (current frame)
+
 Therefore, for predicting 100th frame, 
 98th frame + 99th frame + 100 th frames are fed as input to the model.
-The idea behind this approach is that the pose vertices of previous two frames will not vary much from the current frame and could help the model to understand the continuous change of pose coordinates across the frames and thereby help with making precise predictions. 
-One more idea behind this approach is that feeding n-1 previous pose frames along with nth pose frame may help the model to understand that the predicted frame will not be too different when compared to previous n-1 pose frames and thereby result in generating a smoother output (with respect to coordinate change between pose frames).
 
-The decoder network in this architecture has multiple experts (multiple decision arm) where each expert has a weight coefficient associated with it (to modulate the impact of an expert's output on the overall output) and the output from each expert (arm) in the decoder is sequentially fed as input to the next expert through a concaenation operation.
-The idea behind this approach is that different expert arm in the decoder may learn different aspects from latent space of the encoder in case the latent space is somewhat disentangled which may help in predicting precise outputs.
+The idea behind this approach is that the pose vertices of previous two frames will not vary much from the current frame. 
+This could help the model to understand the continuous change of pose coordinates across the frames and thereby help with making precise predictions. 
 
-P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. Even using millions of parameters do not guarantee convergence.
+One more idea behind this approach is that feeding n-1 previous pose frames along with nth pose frame may help the model to understand that:
+`the predicted frame will not be too different when compared to previous n-1 pose frames.`
+Thereby result in generating a smoother output (with respect to coordinate change between pose frames).
+
+The decoder network in this architecture has multiple experts (multiple decision arm). 
+Each expert has a weight coefficient associated with it (to modulate the impact of an expert's output on the overall output). 
+The output from each expert (arm) in the decoder is sequentially fed as input to the next expert through a concaenation operation.
+
+The idea behind this approach is that different expert arm in the decoder may learn different aspects from latent space of the encoder. 
+This is true especially in the case where the latent space is somewhat disentangled which will help in predicting more precise outputs.
+
+P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
+Even using millions of parameters do not guarantee convergence.
 ```
 
 ## 2. REQUIREMENTS
@@ -165,8 +182,10 @@ I used `dyna` class data for this experiment where I trained 1st to 798th data s
 
 ### 4.3 `Neural Network (Architecture) Variations Considered:`
 
-(i) The first variant is the neural network architecture explained in section 1. 
+(i) The first variant is the neural network architecture explained in section 1.
+
 (ii) In the second variant, apart from sbs pose parameters, joint coordinates are also used. Since number of vertices in sbs data and ground truth scan (32729) is different when compared to number of vertices in the joint data (83), corresponding vertex information from multiple conditional frames are combined along with entire joint vertex info of a mesh and this is fed as input to encoder to generate latent representation.
+
 (iii) The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
 
 This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
