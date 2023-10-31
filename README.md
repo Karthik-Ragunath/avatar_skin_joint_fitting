@@ -1,5 +1,6 @@
 # Avatar Model To Fit Skin Interoilations to Ground-Truth Scan
 
+----------------------
 ## 1.SUMMARY
 
 ```
@@ -42,6 +43,18 @@ P.S. - I did not experiment with a fully-connected neural network based architec
 Even using millions of parameters do not guarantee convergence.
 ```
 
+### 1.1 INFERENCE RESULTS WITH (ONE OF) OUR MODEL VARIANT TRAINED FOR (JUST) 20 EPOCHS
+
+### 1.1.1 `dyna_sbs.00800.obj`
+![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
+
+### 1.1.2. `dyna_sbs.00799.obj`
+![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
+
+----------------------
+__LET'S SEE THINGS IN DETAIL__
+
+----------------------
 ## 2. REQUIREMENTS
 
 ```
@@ -81,6 +94,7 @@ pip install --no-index --no-cache-dir pytorch3d -f https://dl.fbaipublicfiles.co
 pip install -U 'git+https://github.com/facebookresearch/iopath'
 ```
 
+----------------------
 ## 3. CONFIGS (+ Sample VSCode debugger templates to run train and infer from models)
 
 ### 3.1 CONFIGS
@@ -206,6 +220,7 @@ frame_size = 3 # Dimension of each vertex
 }
 ```
 
+----------------------
 ## 4. EXPERIMENTS
 
 Due to lack of compute power and time constraints, I followed the following heurestic to choose the best architecture and then fine-tuned on top of that architecture
@@ -254,10 +269,12 @@ __SINCE THESE ARE RESULTS AT THE END OF SECOND (2nd) EPOCH, THE RESULTS LOOK A B
 3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss - dyna_sbs.00799.obj`
 ![Variant 3](epoch_2/variant_3.png)
 
-__IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT__
+----------------------
+__IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:__
 
 `Variant 1 - Multi-Pose Encoder With Multi-Expert Decoder` __SEEMS TO BE THE ARCHITECTURE SETUP TO USE__
 
+----------------------
 ## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder VARIANT FOR 20 EPOCHS
 
 __INFERENCING ON:__
@@ -267,3 +284,5 @@ __INFERENCING ON:__
 
 ### 5.2 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
+
+----------------------
