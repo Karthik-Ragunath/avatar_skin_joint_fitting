@@ -107,11 +107,12 @@
                 "--num_condition_frames", "3",
                 "--is_target_available",
                 // "--model_saved_path", "saved_model/train_without_joints_2023-10-30_07:06:37/2.pt",
-                "--model_saved_path", "saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt",
-                // "--model_type", "inference_without_joints",
-                "--model_type", "inference_without_joints_smoothened",
-                "--mini_batch_size", "8182",
-                "--device", "cuda:1"
+                // "--model_saved_path", "saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt",
+                "--model_saved_path", "saved_model/2023-10-30_18-58-35/20.pt",
+                "--model_type", "inference_without_joints",
+                // "--model_type", "inference_without_joints_smoothened",
+                // "--mini_batch_size", "8182",
+                "--device", "cuda:0"
             ]
         },
         {

@@ -148,8 +148,8 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         if copy_pose_list:
             copy_pose_tensor = torch.stack(copy_pose_list, dim=0) # torch.Size([args.num_condition_frames - 1, 3])
             predicted_pose_tensor = torch.cat((copy_pose_tensor, predicted_pose_tensor), dim=0) # torch.Size([32731, 3]) where 32731 = num_vertices
-        os.makedirs(os.path.join('inference_meshes', args.model_type), exist_ok=True)
-        save_obj(f=os.path.join('inference_meshes', args.model_type, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
+        os.makedirs(os.path.join('inference_meshes', args.model_type, args.timestamp), exist_ok=True)
+        save_obj(f=os.path.join('inference_meshes', args.model_type, args.timestamp, source_mesh_file_path.split('/')[-1]), verts=predicted_pose_tensor, faces=source_faces)
 
 if __name__ == "__main__":
     args = parse_arguments()
