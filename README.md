@@ -203,7 +203,7 @@ frame_size = 3 # Dimension of each vertex
 }
 ```
 
-## 4. Experiments
+## 4. EXPERIMENTS
 
 Due to lack of compute power and time constraints, I followed the following heurestic to choose the best architecture and then fine-tuned on top of that architecture
 
@@ -227,7 +227,7 @@ The third variant's network architecture is similar to the first variant expect 
 This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
 At the end of my experiment, variant 1 produced the best possible result both interms of deterministic loss value and also in terms of eye-balling test.
 
-### 4.4 INFERENCE RESULTS ON TEST DATA AT THE END OF TWO EPOCH FOR EACH OF THE VARIANT
+### 4.4 INFERENCE RESULTS ON TEST DATA AT THE END OF TWO EPOCHS FOR EACH OF THE ARCHITECTURE VARIANT
 
 1. `Multi-Pose Encoder With Multi-Expert Decoder`
 ![Variant 1](loss_curves/variant_1.jpg)
@@ -237,4 +237,21 @@ At the end of my experiment, variant 1 produced the best possible result both in
 
 3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss`
 ![Variant 3](loss_curves/variant_3.jpg)
+
+### 4.5 INFERENCE OBJ FILES GENERATED AT THE END OF TWO EPOCHS FOR EACH ARCHITECTURE VARIANT
+
+__SINCE THESE ARE RESULTS AT THE END OF SECOND (2nd) EPOCH, THE RESULTS LOOK A BIT ROUGH__
+
+1. `Multi-Pose Encoder With Multi-Expert Decoder - dyna_sbs.00799.obj`
+![Variant 1](epoch_2/variant_1.png)
+
+2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder - dyna_sbs.00799.obj + dyna_joints.00799.obj`
+![Variant 2](epoch_2/variant_2.png)
+
+3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss - dyna_sbs.00799.obj`
+![Variant 3](epoch_2/variant_3.png)
+
+
+
+
 
