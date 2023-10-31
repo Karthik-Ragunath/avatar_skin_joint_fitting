@@ -215,39 +215,26 @@ I used `dyna` class data for this experiment where I trained 1st to 798th data s
 
 ### 4.3 `Neural Network (Architecture) Variations Considered:`
 
-(i) The first variant is the neural network architecture explained in section 1.
+(i) `Multi-Pose Encoder With Multi-Expert Decoder`
+The first variant is the neural network architecture explained in section 1.
 
-(ii) In the second variant, apart from sbs pose parameters, joint coordinates are also used. Since number of vertices in sbs data and ground truth scan (32729) is different when compared to number of vertices in the joint data (83), corresponding vertex information from multiple conditional frames are combined along with entire joint vertex info of a mesh and this is fed as input to encoder to generate latent representation.
+(ii) `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder`
+In the second variant, apart from sbs pose parameters, joint coordinates are also used. Since number of vertices in sbs data and ground truth scan (32729) is different when compared to number of vertices in the joint data (83), corresponding vertex information from multiple conditional frames are combined along with entire joint vertex info of a mesh and this is fed as input to encoder to generate latent representation.
 
-(iii) The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
+(iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss`
+The third variant's network architecture is similar to the first variant expect that we introduce a minor variation in loss function. In first variant, the only loss function used is reconstruction L2 loss whereas in the third variant, we use mesh laplacian loss along with L2 reconstruction to get smoothing effect.
 
 This experiment is termed a heurestic, since I only trained for two epochs to pick the best variant (due to time and compute constraints).
 At the end of my experiment, variant 1 produced the best possible result both interms of deterministic loss value and also in terms of eye-balling test.
 
 ### 4.4 INFERENCE RESULTS ON TEST DATA AT THE END OF TWO EPOCH FOR EACH OF THE VARIANT
 
-`Variant 1`
+1. `Multi-Pose Encoder With Multi-Expert Decoder`
+![Variant 1][loss_curves/variant_1.jpg]
 
+2. `Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder`
+![Variant 2][loss_curves/variant_2.jpg]
 
-`Variant 2`
-
-
-`Variant 3`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss`
+![Variant 3][loss_curves/variant_3.jpg]
 

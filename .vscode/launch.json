@@ -121,6 +121,24 @@
                 "--model_type", "inference_with_joints",
                 "--device", "cuda:1"
             ]
+        },
+        {
+            "name": "plot_curves",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/plot_loss_curve.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": [
+                // "--file_path", "logs/train_without_joints_2023-10-30_07:06:37",
+                // "--file_path", "logs/with_joints/2023-10-30_10-07-10",
+                "--file_path", "logs/without_joints_smoothened/2023-10-31-05-33-09",
+                // "--file_type", "reconstruction",
+                "--file_type", "smoothing",
+                // "--output_file_path", "loss_curves/variant_1.jpg"
+                // "--output_file_path", "loss_curves/variant_2.jpg"
+                "--output_file_path", "loss_curves/variant_3.jpg"
+            ]
         }
     ]
 }
