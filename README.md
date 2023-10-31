@@ -10,6 +10,7 @@ The auto-encoder I designed,
 (ii) generates a low latent representation of it,
 (ii) which is then fed into a decoder which is trained to produce the vertices of the ground truth scan. 
 
+-----------------------
 The encoder network in this architecture is designed to take n-1 previous conditional frames as input along with the nth frame to produce the nth frame of the scan. 
 
 For my experiments, I trained the model with n=3 conditional frames.
@@ -28,6 +29,7 @@ One more idea behind this approach is that feeding n-1 previous pose frames alon
 `the predicted frame will not be too different when compared to previous n-1 pose frames.`
 Thereby result in generating a smoother output (with respect to coordinate change between pose frames).
 
+-----------------------
 The decoder network in this architecture has multiple experts (multiple decision arm). 
 Each expert has a weight coefficient associated with it (to modulate the impact of an expert's output on the overall output). 
 The output from each expert (arm) in the decoder is sequentially fed as input to the next expert through a concaenation operation.
@@ -35,6 +37,7 @@ The output from each expert (arm) in the decoder is sequentially fed as input to
 The idea behind this approach is that different expert arm in the decoder may learn different aspects from latent space of the encoder. 
 This is true especially in the case where the latent space is somewhat disentangled which will help in predicting more precise outputs.
 
+-----------------------
 P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
 Even using millions of parameters do not guarantee convergence.
 ```
@@ -252,4 +255,15 @@ __SINCE THESE ARE RESULTS AT THE END OF SECOND (2nd) EPOCH, THE RESULTS LOOK A B
 ![Variant 3](epoch_2/variant_3.png)
 
 __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT__
+
 `Variant 1 - Multi-Pose Encoder With Multi-Expert Decoder` __SEEMS TO BE THE ARCHITECTURE SETUP TO USE__
+
+## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder VARIANT FOR 20 EPOCHS
+
+__INFERENCING ON:__
+
+### 5.1 `dyna_sbs.00799.obj`
+![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
+
+### 5.2 `dyna_sbs.00800.obj`
+![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
