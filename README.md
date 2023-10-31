@@ -251,7 +251,5 @@ __SINCE THESE ARE RESULTS AT THE END OF SECOND (2nd) EPOCH, THE RESULTS LOOK A B
 3. `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss - dyna_sbs.00799.obj`
 ![Variant 3](epoch_2/variant_3.png)
 
-
-
-
-
+__IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT__
+`Variant 1 - Multi-Pose Encoder With Multi-Expert Decoder` __SEEMS TO BE THE ARCHITECTURE SETUP TO USE__
