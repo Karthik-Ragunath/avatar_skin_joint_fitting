@@ -48,17 +48,34 @@ The architecture details, results and plots are explained in detail in the comin
 
 (iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
 
+Based on heurestics I explained below, I conclude that:
+`Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture (Variant 1) is the best architecture among three described above.
+
+### 1.1. `Corresponding Training and Inference Scripts` For `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder
+
+`TRAINING:`
+```
+fit_mesh.py
+```
+
+`INFERENCE:`
+```
+inference_mesh.py
+```
+
+`REFER SECTION 3 FOR DETAIL STEPS TO RUN ABOVE TRAINING AND INFERENCE PIPELINES WITH CORRECT CONFIGS`
+
 ```
 P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
 Even using millions of parameters do not guarantee convergence.
 ```
 
-### 1.1 INFERENCE RESULTS WITH (ONE OF) OUR MODEL VARIANT TRAINED FOR (JUST) 20 EPOCHS
+### 1.2 INFERENCE RESULTS WITH (ONE OF) OUR MODEL VARIANT TRAINED FOR (JUST) 20 EPOCHS
 
-### 1.1.1 `dyna_sbs.00800.obj`
+### 1.2.1 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
 
-### 1.1.2. `dyna_sbs.00799.obj`
+### 1.2.2. `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
 
 ----------------------
@@ -355,6 +372,7 @@ __saved_model/with_joints/2023-10-30_10-07-10/2.pt__
 __saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt__
 
 ### `6.2. Epoch 20 - Refined Model`
+### (PICKED BASED ON HEURESTIC DESCRIBED IN SECTION 4 AS THE BEST ARCHIETECTURE AMONG THREE)
 
 #### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
 
