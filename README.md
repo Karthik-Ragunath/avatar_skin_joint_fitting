@@ -247,6 +247,24 @@ frame_size = 3 # Dimension of each vertex
 }
 ```
 
+### 3.3.3. Trained Models
+
+#### `3.3.3.1. Epoch - 2 Trained Model For Heurestic Estimation`
+
+`Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
+__saved_model/without_joints/2023-10-30_07-06-37/2.pt__
+
+`Multi-Pose Multi-Joint Encoder With Multi-Expert Decoder` Auto-Encoder:
+__saved_model/with_joints/2023-10-30_10-07-10/2.pt__
+
+`Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder:
+__saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt__
+
+#### `3.3.3.2. Epoch 20 - Refined Model`
+
+`Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
+__saved_model/without_joints/2023-10-30_18-58-35/20.pt__
+
 ----------------------
 ## 4. EXPERIMENTS
 
