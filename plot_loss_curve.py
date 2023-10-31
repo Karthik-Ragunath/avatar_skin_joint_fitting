@@ -49,7 +49,7 @@ else:
 if file_type == "reconstruction":
     # Plot the errors
     plt.figure(figsize=(10, 6))
-    plt.plot(errors, marker='o', linestyle='-', color='b')
+    plt.plot(errors, marker='o', linestyle='-', color='b', linewidth=0.4)
     plt.xlabel('Iterations')
     plt.ylabel('Error Value')
     plt.title('Error over Iterations')
