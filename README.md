@@ -48,10 +48,10 @@ The architecture details, results and plots are explained in detail in the comin
 
 (iii) `Multi-Pose Encoder With Multi-Expert Decoder + Laplacian Smoothing Loss` Auto-Encoder Neural Network Architecture
 
-Based on heurestics I explained below, I conclude that:
+Based on heurestics I explained in the below sections (Section 4), I conclude that:
 `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Neural Network Architecture (Variant 1) is the best architecture among three described above.
 
-### 1.1. `Corresponding Training and Inference Scripts` For `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder
+### 1.1. `Corresponding Training and Inference Scripts` For `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Architecture
 
 `TRAINING:`
 ```
@@ -63,7 +63,7 @@ fit_mesh.py
 inference_mesh.py
 ```
 
-`REFER SECTION 3 FOR DETAIL STEPS TO RUN ABOVE TRAINING AND INFERENCE PIPELINES WITH CORRECT CONFIGS`
+`REFER SECTION 3 FOR DETAILED STEPS TO RUN THE ABOVE TRAINING AND INFERENCE PIPELINES WITH CORRECT CONFIGS`
 
 ```
 P.S. - I did not experiment with a fully-connected neural network based architecture since they tend to need huge number of parameters to fit models designed to predict multi-dimensional continuous outputs. 
