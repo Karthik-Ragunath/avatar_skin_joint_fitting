@@ -90,7 +90,8 @@
                 "--source_files_dir", "geo/dyna_sbs/obj",
                 "--target_files_dir", "geo/dyna_target/obj",
                 "--num_condition_frames", "3",
-                "--device", "cuda:1"
+                "--device", "cuda:4",
+                "--num_epochs", "20"
             ]
         },
         {
