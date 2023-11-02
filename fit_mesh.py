@@ -127,10 +127,10 @@ def main(args: SimpleNamespace, source_mesh_file_paths: List, target_mesh_file_p
         avg_ep_recon_loss = ep_recon_loss / ((mini_batch_index + 1) * (mesh_index + 1))
         logger.info(f"Average Reconstruction for epoch: {epoch} is {avg_ep_recon_loss}")
         if epoch % epoch_save_interval == 0:
-            os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
-            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
-    os.makedirs(os.path.join("saved_model", args.timestamp), exist_ok=True)
-    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.timestamp, f"{epoch}.pt"))
+            os.makedirs(os.path.join("saved_model", args.model_type, args.timestamp), exist_ok=True)
+            torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.model_type, args.timestamp, f"{epoch}.pt"))
+    os.makedirs(os.path.join("saved_model", args.model_type, args.timestamp), exist_ok=True)
+    torch.save(copy.deepcopy(pose_auto_encoder).cpu(), os.path.join("saved_model", args.model_type, args.timestamp, f"{epoch}.pt"))
 
 if __name__ == "__main__":
     timestamp = time.time()
