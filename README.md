@@ -72,8 +72,7 @@ P.S. - I did not experiment with a fully-connected neural network based architec
 Even using millions of parameters do not guarantee convergence.
 ```
 
-### 1.2 INFERENCE RESULTS WITH `Multi-Pose Encoder With Multi-Expert Decoder` MODEL VARIANT TRAINED FOR 12 EPOCHS ON DYNA+ROM SBS DATASET
-### TRAINED FOR 3 HOURS ON 3090 GPU
+### 1.2 INFERENCE RESULTS WITH `Multi-Pose Encoder With Multi-Expert Decoder` MODEL VARIANT TRAINED FOR 12 EPOCHS ON DYNA+ROM SBS DATASET TRAINED FOR 3 HOURS ON 3090 GPU
 
 ### 1.2.1 `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00799.png)
