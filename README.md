@@ -72,29 +72,18 @@ P.S. - I did not experiment with a fully-connected neural network based architec
 Even using millions of parameters do not guarantee convergence.
 ```
 
-### 1.2 INFERENCE RESULTS WITH `Multi-Pose Encoder With Multi-Expert Decoder` MODEL VARIANT TRAINED FOR (JUST) 20 EPOCHS
-### ON SMALLER DATASET (ONLY DYNA) FOR LESS THAN 2 HOURS
-
-### 1.2.1 `dyna_sbs.00800.obj`
-![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
-
-### 1.2.2. `dyna_sbs.00799.obj`
-![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
-
-### DUE TO COMPUTE POWER CONSTRAINTS, I STOPPED FINE_TUNING AT 20 EPOCHS
-### IF I HAD TRAINED FOR MORE EPOCHS RESULTS WOULD HAVE BEEN EVEN BETTER
-### IT TAKES LESS THAN 2 HOUR TO REACH 20 EPOCHS
-
-### `PS:`
-
-### 1.3 INFERENCE RESULTS WITH `Multi-Pose Encoder With Multi-Expert Decoder` MODEL VARIANT TRAINED FOR 12 EPOCHS ON LARGER DATASET (DYNA + ROM)
-### FOR 3 HOURS ON 3090 GPU
+### 1.3 INFERENCE RESULTS WITH `Multi-Pose Encoder With Multi-Expert Decoder` MODEL VARIANT TRAINED FOR 12 EPOCHS ON DYNA+ROM SBS DATASET
+### TRAINED FOR 3 HOURS ON 3090 GPU
 
 ### 1.3.1 `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00799.png)
 
 ### 1.3.2 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00800.png)
+
+### `PS:`
+### DUE TO COMPUTE POWER CONSTRAINTS, I STOPPED FINE_TUNING AT 12 EPOCHS
+### IF I HAD TRAINED FOR MORE EPOCHS RESULTS WOULD HAVE BEEN EVEN BETTER
 
 ----------------------
 __LET'S SEE THINGS IN DETAIL__
