@@ -349,13 +349,13 @@ __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:
 `Variant 1 - Multi-Pose Encoder With Multi-Expert Decoder` __SEEMS TO BE THE ARCHITECTURE SETUP TO USE__
 
 ----------------------
-## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder Auto-Encoder For 20 Epochs
+## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder Auto-Encoder For 20 Epochs on Dyna Dataset and 12 Epochs on Dyna+Rom Dataset
 
-### 5.1 `TRAINING LOSS FOR 20 EPOCHS`
+### 5.1 `TRAINING LOSS`
 
 ![fine_tuned_variant_1.jpg](loss_curves/fine_tuned_variant_1.jpg)
 
-### 5.2 `INFERENCING ON:`
+### 5.2 `INFERENCING ON MODEL TRAINED WITH DYNA DATASET FOR 20 EPOCHS::`
 
 ### 5.2.1 `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
