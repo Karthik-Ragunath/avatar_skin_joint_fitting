@@ -67,7 +67,7 @@
                 "--target_directories", "geo/dyna_target/obj", "geo/rom_target/obj",
                 "--num_condition_frames", "3",
                 "--device", "cuda:1",
-                "--num_epochs", "46"
+                "--num_epochs", "12"
             ]
         },
         {
