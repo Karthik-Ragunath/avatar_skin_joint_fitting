@@ -1,4 +1,4 @@
-# Avatar Model To Fit Skin Interoilations to Ground-Truth Scan
+# Avatar Model To Fit Skin Interpolations to Ground-Truth Scan
 
 ----------------------
 ## 1.SUMMARY
@@ -73,6 +73,7 @@ Even using millions of parameters do not guarantee convergence.
 ```
 
 ### 1.2 INFERENCE RESULTS WITH (ONE OF) OUR MODEL VARIANT TRAINED FOR (JUST) 20 EPOCHS
+### ON SMALLER DATASET (ONLY DYNA) FOR LESS THAN 2 HOURS
 
 ### 1.2.1 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
@@ -80,11 +81,20 @@ Even using millions of parameters do not guarantee convergence.
 ### 1.2.2. `dyna_sbs.00799.obj`
 ![dyna_sbs_00799.png](epoch_20/variant_1/dyna_sbs_00799.png)
 
-### `PS:`
-
 ### DUE TO COMPUTE POWER CONSTRAINTS, I STOPPED FINE_TUNING AT 20 EPOCHS
 ### IF I HAD TRAINED FOR MORE EPOCHS RESULTS WOULD HAVE BEEN EVEN BETTER
-### IT TAKES LESS THAN 1 HOUR TO REACH 20 EPOCHS
+### IT TAKES LESS THAN 2 HOUR TO REACH 20 EPOCHS
+
+### `PS:`
+
+### 1.3 INFERENCE RESULTS WITH (ONE OF) OUR MODEL VARIANT TRAINED FOR 12 EPOCHS ON LARGER DATASET (DYNA + ROM)
+### FOR 3 HOURS ON 3090 GPU
+
+### 1.3.1 `dyna_sbs.00799.obj`
+![dyna_sbs_00799.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00799.png)
+
+### 1.3.2 `dyna_sbs.00800.obj`
+![dyna_sbs_00800.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00800.png)
 
 ----------------------
 __LET'S SEE THINGS IN DETAIL__
@@ -365,6 +375,14 @@ __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:
 ### 5.2.2 `dyna_sbs.00800.obj`
 ![dyna_sbs_00800.png](epoch_20/variant_1/dyna_sbs_00800.png)
 
+### 5.3 `INFERENCING ON MODEL TRAINED WITH LARGER DATASET (DYNA + ROM) FOR 12 EPOCHS:`
+
+### 5.3.1 `dyna_sbs.00799.obj`
+![dyna_sbs_00799.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00799.png)
+
+### 5.3.2 `dyna_sbs.00800.obj`
+![dyna_sbs_00800.png](epoch_12_larger_dataset_dyna+rom/variant_1_larger_dataset/dyna_sbs_00800.png)
+
 ----------------------
 ## 6. `Trained Models Location`
 
@@ -388,5 +406,9 @@ __saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt__
 #### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder:
 
 __saved_model/without_joints/2023-10-30_18-58-35/20.pt__
+
+#### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Trained On Larger Dataset (Dyna + Rom):
+
+__saved_model/without_joints/2023-10-31_15-26-16/12.pt__
 
 ----------------------
