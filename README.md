@@ -349,7 +349,7 @@ __IT IS CLEAR FROM LOSS CURVES AND INFERENCE RESULTS AT THE END OF EPOCH 2 THAT:
 `Variant 1 - Multi-Pose Encoder With Multi-Expert Decoder` __SEEMS TO BE THE ARCHITECTURE SETUP TO USE__
 
 ----------------------
-## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder Auto-Encoder For 20 Epochs on Dyna Dataset and 12 Epochs on Dyna+Rom Dataset
+## 5. FINE-TUNING Multi-Pose Encoder With Multi-Expert Decoder Auto-Encoder For 20 Epochs on Dyna Dataset and 12 Epochs on Larger Dyna+Rom Dataset
 
 ### 5.1 `TRAINING LOSS`
 
