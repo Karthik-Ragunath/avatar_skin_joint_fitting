@@ -403,3 +403,10 @@ __saved_model/without_joints/2023-10-30_18-58-35/20.pt__
 __saved_model/without_joints/2023-10-31_15-26-16/12.pt__
 
 ----------------------
+### 7. Private Repository Link
+
+Access the private repository containing this project in the link below to view the contents in a UI friendly format
+
+__https://gitfront.io/r/Karthik-Ragunath/bxxgthLGMvMw/avatar-skin-joint-fitting/__
+
+----------------------
