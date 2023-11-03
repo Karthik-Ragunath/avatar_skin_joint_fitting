@@ -1,0 +1,4 @@
+2023-11-02 19:06:37,396 | INFO | mesh_index: 0; mini_batch_index: 0 - error: 1.0915052371274214e-05
+2023-11-02 19:06:37,396 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00799.obj is 1.0915052371274214e-05
+2023-11-02 19:06:40,608 | INFO | mesh_index: 1; mini_batch_index: 0 - error: 1.0403949090687092e-05
+2023-11-02 19:06:40,608 | INFO | Average reconstruction loss for mesh: geo_test/dyna_sbs/obj/dyna_sbs.00800.obj is 1.0403949090687092e-05
