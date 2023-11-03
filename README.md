@@ -398,7 +398,7 @@ __saved_model/without_joints/2023-10-30_18-58-35/20.pt__
 
 ### `6.3. Epoch 12 - Model Refined On [Dyna + Rom] Larger Dataset SBS Data`
 
-#### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Trained On Larger Dataset (Dyna+Rom) SBS Data:
+#### 6.3.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Trained On Larger Dataset (Dyna+Rom) SBS Data:
 
 __saved_model/without_joints/2023-10-31_15-26-16/12.pt__
 
