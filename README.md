@@ -388,12 +388,15 @@ __saved_model/with_joints/2023-10-30_10-07-10/2.pt__
 
 __saved_model/without_joints_smoothened/2023-10-30_19-40-51/2.pt__
 
-### `6.2. Epoch 20 - Refined Model`
 ### (PICKED BASED ON HEURESTIC DESCRIBED IN SECTION 4 AS THE BEST ARCHIETECTURE AMONG THREE)
+
+### `6.2. Epoch 20 - Model Refined On Dyna Dataset SBS Data`
 
 #### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Train On Dyna SBS Data:
 
 __saved_model/without_joints/2023-10-30_18-58-35/20.pt__
+
+### `6.3. Epoch 12 - Model Refined On [Dyna + Rom] Larger Dataset SBS Data`
 
 #### 6.2.1. `Multi-Pose Encoder With Multi-Expert Decoder` Auto-Encoder Trained On Larger Dataset (Dyna+Rom) SBS Data:
 
