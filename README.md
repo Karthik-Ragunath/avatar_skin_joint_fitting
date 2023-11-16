@@ -201,17 +201,18 @@ frame_size = 3 # Dimension of each vertex
 `fit_mesh_without_joints:smoothened` (using sbs data to fit ground truth scan while also including laplacian smoothing loss)
 ```
 {
-    "name": "fit_mesh_with_joints",
+    "name": "fit_mesh_without_joints:smoothened",
     "type": "python",
     "request": "launch",
-    "program": "${workspaceFolder}/fit_mesh_with_joints.py",
+    "program": "${workspaceFolder}/fit_mesh_smoothened.py",
     "console": "integratedTerminal",
     "justMyCode": true,
     "args": [
         "--source_files_dir", "geo/dyna_sbs/obj",
         "--target_files_dir", "geo/dyna_target/obj",
-        "--joint_files_dir", "geo/dyna_joints/obj",
-        "--num_condition_frames", "3"
+        "--num_condition_frames", "3",
+        "--device", "cuda:1",
+        "--num_epochs", "20"
     ]
 }
 ```
